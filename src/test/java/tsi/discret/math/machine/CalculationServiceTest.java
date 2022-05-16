@@ -20,7 +20,7 @@ class CalculationServiceTest {
 
         assertThat(result.get(0).getIfState()).isEqualTo("q0");
         assertThat(result.get(0).getIfSymbol()).isEqualTo("a");
-        assertThat(result.get(0).getWhatToWrite()).isEqualTo("b");
+        assertThat(result.get(0).getWhatToWrite()).isEqualTo("1");
         assertThat(result.get(0).getNewState()).isEqualTo("q0");
         assertThat(result.get(0).getMovementDirection()).isEqualTo(RIGHT);
         assertThat(result.get(0).isEndCommand()).isEqualTo(false);
@@ -34,7 +34,7 @@ class CalculationServiceTest {
 
         assertThat(result.get(2).getIfState()).isEqualTo("q4");
         assertThat(result.get(2).getIfSymbol()).isEqualTo("");
-        assertThat(result.get(2).getWhatToWrite()).isEqualTo("");
+        assertThat(result.get(2).getWhatToWrite()).isEqualTo(null);
         assertThat(result.get(2).getNewState()).isNull();
         assertThat(result.get(2).getMovementDirection()).isNull();
         assertThat(result.get(2).isEndCommand()).isEqualTo(true);
@@ -65,6 +65,6 @@ class CalculationServiceTest {
         assertThat(result.get(2).getWhatToWrite()).isNull();
         assertThat(result.get(2).getNewState()).isEqualTo("q3");
         assertThat(result.get(2).getMovementDirection()).isNull();
-        assertThat(result.get(2).isEndCommand()).isEqualTo(true);
+        assertThat(result.get(2).isEndCommand()).isEqualTo(false);
     }
 }

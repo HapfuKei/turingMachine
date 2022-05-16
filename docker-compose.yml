@@ -1,8 +1,7 @@
 version: "3.7"
 services:
-  jibril-bot:
+  turing-machine:
     container_name: turing-machine
     build: .
-    restart: always
     ports:
       - "8010:8010"

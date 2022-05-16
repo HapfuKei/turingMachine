@@ -16,7 +16,7 @@ public class Command {
     boolean endCommand;
 
     public String getIfSymbol() {
-        if (Objects.nonNull(whatToWrite) && ifSymbol.equals("_")) return "";
+        if (Objects.nonNull(ifSymbol) && ifSymbol.equals("_")) return "";
         return ifSymbol;
     }
 
