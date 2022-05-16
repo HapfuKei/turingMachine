@@ -1,0 +1,59 @@
+/*
+ * Lab1.c
+ *
+ * Created: 13/05/2022 21:40:18
+ * Author : hapfu
+ */
+
+#define F_CPU 8000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define set(x) PORTB &= ~(1<<x)
+#define clear(x) PORTB |= (1<<x)
+#define swap(x) PORTB ^= (1<<x)
+#define readBt(x) !(PIND & (1<<x))
+
+typedef enum { false, true } bool;
+
+
+int main(void)
+{
+	DDRB =  0b11111111; // set port B to output (led)
+	PORTB = 0b11111111; // set port B 5V (led)
+	DDRD = 0; // set port D to input (default,buttons)
+	PIND = 0b11111111; // protect input from noise
+	unsigned char counter=0b00000000;
+	bool showCounter = false;
+	int blinkDelay = 0;
+	int blinkLed = 0;
+	int showCounterDelay = 0;
+	unsigned char saveBlinkState=counter;
+    while (1)
+    {
+        if (showCounter==true && showCounterDelay <= 6000) {
+            PORTB= counter;
+            _delay_ms(10);
+            showCounterDelay+=10;
+        } else if (readBt(0) && showCounter == false){
+            showCounterDelay = 0;
+            showCounter = true;
+            saveBlinkState=PORTB;
+        } else {
+            swap(blinkLed);
+            if (blinkDelay<300){
+                _delay_ms(10);
+                blinkDelay=blinkDelay+10;
+            } else if (blinkDelay >= 300) {
+                swap(blinkLed);
+                if (blinkLed < 8) {
+                    blinkLed++;
+                } else {
+                    blinkLed=0;
+                }
+                counter++;
+                blinkDelay=0;
+            }
+        }
+	}
+}
