@@ -25,4 +25,4 @@ jobs:
             git pull --rebase --autostash
             ./gradlew -Pvaadin.productionMode=true bootJar
             docker-compose down --rmi all
-            docker-compose up --detachd
+            docker-compose up --d
