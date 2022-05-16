@@ -1,0 +1,28 @@
+name: Build and deploy turing-machine to vm
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run docker on VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STUFF_IP }}
+          username: ${{ secrets.STUFF_USER }}
+          key: ${{ secrets.STUFF_SSH }}
+          port: 22
+          script: |
+            cd ~/turing/turingMachine
+            git pull --rebase --autostash
+            ./gradlew -Pvaadin.productionMode=true bootJar
+            docker-compose down --rmi all
+            docker-compose up --detachd
