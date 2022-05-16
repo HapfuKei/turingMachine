@@ -1,5 +1,6 @@
 package tsi.discret.math.views;
 
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -235,49 +236,71 @@ public class MainView extends VerticalLayout {
         textArea.setReadOnly(true);
         textArea.setSizeFull();
 
+        String welcomeString = """
+                Welcome, you try to use Turing machine simulator\s
+                that written like course project. Below you could\s
+                see short description how to use this machine.\s
+                """;
+        textArea.setValue(welcomeString);
+
         Tabs tabs = new Tabs(welcome, buttons, fields, code, quickGuide);
         tabs.addThemeVariants(TabsVariant.LUMO_EQUAL_WIDTH_TABS);
         tabs.addSelectedChangeListener(event -> {
             Tab selectedTab = event.getSelectedTab();
             textArea.clear();
             if (selectedTab.equals(welcome)) {
-                textArea.setValue("""
-                        Welcome, you try to use Turing machine simulator\s
-                        that written like course project. Below you could\s
-                        see short description how to use this machine.\s
-                        """);
+                textArea.setValue(welcomeString);
             } else if (selectedTab.equals(buttons)) {
                 textArea.setValue("""
                         Buttons: \n
-                        "One step" - run one machine step (got trough all rules and execute once)\s
-                        "Start" - run machine steps infinity times until exit rule executed (! symbol)\s
-                        "Load data" - Load data from "Input string" field, starting from current head position\s
-                        "Reset" - reset head state and position to default\s
+                        "One step" -    run one machine step (got trough all rules and execute once)\s
+                        "Start" -       run machine steps infinity times until exit rule executed (! symbol)\s
+                        "Load data" -   Load data from "Input string" field, starting from current head position\s
+                        "Reset" -       reset head state and position to default\s
                                         """);
             } else if (selectedTab.equals(fields)) {
                 textArea.setValue("""
                         Fields: \n
-                        "Cell count" - set tape length\s
-                        "Current head state" - represent current head state, also allow change it\s
-                        "Tape cells" - Scrollable tape with cells, each cell allow write any symbol\s
+                        "Cell count" -   set tape length\s
+                        "Current head    state" - represent current head state, also allow change it\s
+                        "Tape cells" -   Scrollable tape with cells, each cell allow write any symbol\s
                         "Input string" - Fields where you could define data written by symbol, when click "Load button"\s
-                        "Turing code" - Fields where you could define data written by symbol, when click "Load button"\s
+                        "Turing code" -  Fields where you could define data written by symbol, when click "Load button"\s
+                                                
+                        Table witch rules - show last rule used and all rules that processed
                                         """);
             } else if (selectedTab.equals(code)) {
                 textArea.setValue("""
                         Code: \n
                         q0/a=b q1 >; \n
                         "q0" Statement when executed this rule (any char + number )\s
-                        "a" Sy,bol when executed this rule\s
-                        "=" after this you could define steps that machine should perform\s
-                            in any order, in any counts ("b >","b" "q1 b")\s
-                            * "> | <"  right stay left\s
-                            * "b" what symbol to write\s
-                            * "q1 new state\s                    
+                        "a"  Symbol when executed this rule\s
+                        "="  after this you could define steps that machine should perform\s
+                             in any order, in any counts ("b >","b" "q1 b")\s
+                                * "> | <"  right stay left\s
+                                * "b"      what symbol to write\s
+                                * "q1"     new state\s                    
+                                        """);
+            } else if (selectedTab.equals(quickGuide)) {
+                textArea.setValue("""
+                        Quick guide
+                                                
+                                                
+                        1) Define max "Cell count" and select start position by clicking on cell or stay default (tape middle)\s      
+                        2) Write data manually in each cell or use "Input string" and "Load data" button\s
+                        3) Define initial state in "Current head state" filed or stay default\s
+                        4) Write turing code according the rules\s       
+                        5) Press one step to run one step forward or "Start" to execute to the end
+                                                
+                                                
+                        If some one doesn't work try to use Step button and check rule table\s
+                                                
                                         """);
             }
 
         });
+        tabs.setSelectedTab(welcome);
+        fireEvent(new ClickEvent<>(welcome));
 
         VerticalLayout verticalLayout = new VerticalLayout(textArea);
         verticalLayout.setPadding(true);
