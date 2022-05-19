@@ -66,6 +66,44 @@ public class MainView extends VerticalLayout {
                 q0/a=b q0 >; q0/b=a q0 >; q0/_=!;
                 """);
 
+//        Button stepButton = new Button("One step");
+//        Button startButton = new Button("Start");
+//        Button loadDataButton = new Button("Load data");
+//        Button resetButton = new Button("Reset");
+
+//        stepButton.addClickListener(event -> {
+//            List<Command> commands = calculationService.processCodeToCommands(codeTextArea.getValue());
+//            refreshCommandDataProvider(commands);
+//            stepTuringMachine(commands);
+//        });
+//
+//        startButton.addClickListener(event -> {
+//            List<Command> commands = calculationService.processCodeToCommands(codeTextArea.getValue());
+//            refreshCommandDataProvider(commands);
+//            getUI().ifPresent(ui -> ui.access(() -> {
+//                continueExecuting = true;
+//                recursiveStepTuringMachine(commands);
+//            }));
+//        });
+//
+//
+//        loadDataButton.addClickListener(event -> {
+//            String inputString = inputDataTextArea.getValue();
+//            for (int i = 0; i < inputString.length(); i++) {
+//                char charAt = inputString.charAt(i);
+//                tapTiles.get(currentHeadPosition + i).setValue(String.valueOf(charAt));
+//            }
+//
+//
+//        });
+//
+//        resetButton.addClickListener(event -> {
+//            tapTiles.forEach(tapTile -> tapTile.setValue(""));
+//            int center = tapTiles.size() / 2;
+//            tapTiles.get(center).focus();
+//            currentHeadState = "q0";
+//        });
+
         VerticalLayout tapeContainer = new VerticalLayout(constructTape(15), inputDataTextArea);
         tapeContainer.setSizeFull();
 
