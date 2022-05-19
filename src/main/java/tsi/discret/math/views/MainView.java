@@ -20,6 +20,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import tsi.discret.math.machine.CalculationService;
@@ -41,6 +42,7 @@ public class MainView extends VerticalLayout {
 
 
     public MainView() {
+        VaadinSession.getCurrent().setErrorHandler(new CustomErrorHandler());
 
         TextArea inputDataTextArea = new TextArea();
         inputDataTextArea.setWidthFull();
@@ -50,7 +52,6 @@ public class MainView extends VerticalLayout {
         inputDataTextArea.setValue("aabbab");
 
         TextArea codeTextArea = new TextArea();
-//        codeTextArea.setSizeFull();
         codeTextArea.setMinHeight("10em");
         codeTextArea.setMinWidth("25em");
         codeTextArea.setLabel("Turing code");
@@ -64,44 +65,6 @@ public class MainView extends VerticalLayout {
         codeTextArea.setValue("""
                 q0/a=b q0 >; q0/b=a q0 >; q0/_=!;
                 """);
-
-//        Button stepButton = new Button("One step");
-//        Button startButton = new Button("Start");
-//        Button loadDataButton = new Button("Load data");
-//        Button resetButton = new Button("Reset");
-
-//        stepButton.addClickListener(event -> {
-//            List<Command> commands = calculationService.processCodeToCommands(codeTextArea.getValue());
-//            refreshCommandDataProvider(commands);
-//            stepTuringMachine(commands);
-//        });
-//
-//        startButton.addClickListener(event -> {
-//            List<Command> commands = calculationService.processCodeToCommands(codeTextArea.getValue());
-//            refreshCommandDataProvider(commands);
-//            getUI().ifPresent(ui -> ui.access(() -> {
-//                continueExecuting = true;
-//                recursiveStepTuringMachine(commands);
-//            }));
-//        });
-//
-//
-//        loadDataButton.addClickListener(event -> {
-//            String inputString = inputDataTextArea.getValue();
-//            for (int i = 0; i < inputString.length(); i++) {
-//                char charAt = inputString.charAt(i);
-//                tapTiles.get(currentHeadPosition + i).setValue(String.valueOf(charAt));
-//            }
-//
-//
-//        });
-//
-//        resetButton.addClickListener(event -> {
-//            tapTiles.forEach(tapTile -> tapTile.setValue(""));
-//            int center = tapTiles.size() / 2;
-//            tapTiles.get(center).focus();
-//            currentHeadState = "q0";
-//        });
 
         VerticalLayout tapeContainer = new VerticalLayout(constructTape(15), inputDataTextArea);
         tapeContainer.setSizeFull();

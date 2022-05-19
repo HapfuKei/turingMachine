@@ -7,14 +7,13 @@ import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Route;
 import tsi.discret.math.machine.Command;
 
-@Route("details-content")
 public class CommandView extends Div {
 
     private final Grid<Command> grid;
 
     public CommandView(ListDataProvider<Command> dataProvider) {
         grid = new Grid<>(Command.class, false);
-        grid.addColumn(command -> command.getIfSymbol() + "/" + command.getIfState()).setHeader("If Symbol/If State")
+        grid.addColumn(command -> command.getIfState() + "/" + command.getIfSymbol()).setHeader("If Symbol/If State")
                 .setAutoWidth(true).setSortable(true).setResizable(true)
                 .setFlexGrow(0);
         grid.addColumn(Command::getNewState).setHeader("New State")
