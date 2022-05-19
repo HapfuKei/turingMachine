@@ -216,7 +216,7 @@ public class MainView extends VerticalLayout {
             } else if (selectedTab.equals(buttons)) {
                 textArea.setValue("""
                         Buttons: \n
-                        "One step" -    run one machine step (got trough all rules and execute once)\s
+                        "One step" -    run one machine step (got through all rules and execute once)\s
                         "Start" -       run machine steps infinity times until exit rule executed (! symbol)\s
                         "Load data" -   Load data from "Input string" field, starting from current head position\s
                         "Reset" -       reset head state and position to default\s
