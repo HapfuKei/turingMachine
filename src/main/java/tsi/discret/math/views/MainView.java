@@ -2,7 +2,6 @@ package tsi.discret.math.views;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -137,7 +136,6 @@ public class MainView extends VerticalLayout {
             }));
         });
         menuBar.addItem("Load data", event -> {
-            tapTiles.forEach(HasValue::clear);
             String inputString = inputDataTextArea.getValue();
             for (int i = 0; i < inputString.length(); i++) {
                 char charAt = inputString.charAt(i);
